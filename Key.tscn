@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://dvjwktohrspkg"]
+
+[ext_resource type="Script" path="res://Key.gd" id="1_31q7j"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cpqxa"]
+size = Vector2(32, 32)
+
+[node name="Key" type="Area2D"]
+position = Vector2(288, 288)
+script = ExtResource("1_31q7j")
+metadata/ID = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(16, 16)
+shape = SubResource("RectangleShape2D_cpqxa")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 32.0
+offset_bottom = 32.0
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
