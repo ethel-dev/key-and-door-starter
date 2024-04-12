@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://4plpsgwmhlch"]
+[gd_scene load_steps=20 format=3 uid="uid://4plpsgwmhlch"]
 
 [ext_resource type="PackedScene" uid="uid://dvjwktohrspkg" path="res://Key.tscn" id="1_p53m5"]
 [ext_resource type="PackedScene" uid="uid://cclwajsnmkh1o" path="res://Player.tscn" id="1_rw284"]
@@ -6,6 +6,14 @@
 [ext_resource type="PackedScene" uid="uid://bexnsi8ra36dc" path="res://Door.tscn" id="2_lcx82"]
 [ext_resource type="Script" path="res://HBoxContainer.gd" id="2_qd2fp"]
 [ext_resource type="Script" path="res://Camera2D.gd" id="3_kl05x"]
+[ext_resource type="Texture2D" uid="uid://dfspt86tbu71o" path="res://Hazard/sprite_hazard0.png" id="7_x1n11"]
+[ext_resource type="Texture2D" uid="uid://bv5dl1v1cyrag" path="res://Hazard/sprite_hazard1.png" id="8_xag5j"]
+[ext_resource type="Texture2D" uid="uid://bc47mbwm18c5l" path="res://Hazard/sprite_hazard2.png" id="9_glux4"]
+[ext_resource type="Texture2D" uid="uid://dntil3qtf7ybe" path="res://Hazard/sprite_hazard3.png" id="10_tk7s5"]
+[ext_resource type="Texture2D" uid="uid://bb6tkljhpi00a" path="res://Hazard/sprite_hazard4.png" id="11_ep2xw"]
+[ext_resource type="Texture2D" uid="uid://d4nvd2p1vijje" path="res://Hazard/sprite_hazard5.png" id="12_1fwch"]
+[ext_resource type="Texture2D" uid="uid://4tg8javyaj6d" path="res://Hazard/sprite_hazard6.png" id="13_oke0k"]
+[ext_resource type="Texture2D" uid="uid://cqqv4ihfakga4" path="res://New Piskel.png" id="14_p2wlh"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_eofgi"]
 
@@ -33,6 +41,46 @@ use_texture_padding = false
 physics_layer_0/collision_layer = 1
 physics_layer_0/physics_material = SubResource("PhysicsMaterial_eofgi")
 sources/0 = SubResource("TileSetAtlasSource_hbpoh")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nypoo"]
+size = Vector2(32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_etuhx"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_x1n11")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_xag5j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_glux4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_tk7s5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_ep2xw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_1fwch")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_oke0k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_p2wlh")
+}],
+"loop": true,
+"name": &"new_animation",
+"speed": 15.0
+}]
 
 [node name="Scene1" type="Node2D"]
 
@@ -82,3 +130,17 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("2_qd2fp")
+
+[node name="Hazard" type="Area2D" parent="."]
+position = Vector2(320, 160)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hazard"]
+position = Vector2(16, 16)
+shape = SubResource("RectangleShape2D_nypoo")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Hazard"]
+position = Vector2(16, 16)
+sprite_frames = SubResource("SpriteFrames_etuhx")
+animation = &"new_animation"
+autoplay = "new_animation"
+frame_progress = 0.837745
