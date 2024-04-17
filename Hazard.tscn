@@ -1,0 +1,85 @@
+[gd_scene load_steps=12 format=3 uid="uid://dfjnd75bg35gk"]
+
+[ext_resource type="Texture2D" uid="uid://dfspt86tbu71o" path="res://Hazard/sprite_hazard0.png" id="1_100ug"]
+[ext_resource type="Script" path="res://Hazard.gd" id="1_pd12x"]
+[ext_resource type="Texture2D" uid="uid://bv5dl1v1cyrag" path="res://Hazard/sprite_hazard1.png" id="2_nifk1"]
+[ext_resource type="Texture2D" uid="uid://bc47mbwm18c5l" path="res://Hazard/sprite_hazard2.png" id="3_6wve8"]
+[ext_resource type="Texture2D" uid="uid://dntil3qtf7ybe" path="res://Hazard/sprite_hazard3.png" id="4_4ffop"]
+[ext_resource type="Texture2D" uid="uid://bb6tkljhpi00a" path="res://Hazard/sprite_hazard4.png" id="5_ssah2"]
+[ext_resource type="Texture2D" uid="uid://d4nvd2p1vijje" path="res://Hazard/sprite_hazard5.png" id="6_qp4os"]
+[ext_resource type="Texture2D" uid="uid://4tg8javyaj6d" path="res://Hazard/sprite_hazard6.png" id="7_yhrcp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nypoo"]
+size = Vector2(32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_etuhx"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_100ug")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_nifk1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_6wve8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_4ffop")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_ssah2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_qp4os")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_yhrcp")
+}],
+"loop": true,
+"name": &"new_animation",
+"speed": 15.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kkrt6"]
+size = Vector2(32, 32)
+
+[node name="Hazard" type="CharacterBody2D"]
+position = Vector2(2.08165e-12, 2.08165e-12)
+script = ExtResource("1_pd12x")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(16, 16)
+scale = Vector2(1.2, 1.2)
+shape = SubResource("RectangleShape2D_nypoo")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(16, 16)
+sprite_frames = SubResource("SpriteFrames_etuhx")
+animation = &"new_animation"
+autoplay = "new_animation"
+frame_progress = 0.837745
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-2.08165e-12, -2.08165e-12)
+rect = Rect2(2.08165e-12, 2.08165e-12, 31, 31)
+
+[node name="StartTimer" type="Timer" parent="."]
+wait_time = 5.0
+
+[node name="HitBox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(16, 16)
+scale = Vector2(1.2, 1.2)
+shape = SubResource("RectangleShape2D_kkrt6")
+
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
+[connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]
+[connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]

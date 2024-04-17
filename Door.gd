@@ -13,8 +13,8 @@ func _process(delta):
 
 
 func _on_area_2d_body_entered(body):
-	if (get_meta("ID") in Global.keys_found):
-		
-		queue_free()
+	if (body.name == "Player"):
+		if (get_meta("ID") in Global.keys_found):
+			queue_free()
 	
 	pass # Replace with function body.

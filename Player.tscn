@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cclwajsnmkh1o"]
+[gd_scene load_steps=15 format=3 uid="uid://cclwajsnmkh1o"]
 
 [ext_resource type="Script" path="res://Player.gd" id="1_5m5h3"]
 [ext_resource type="Texture2D" uid="uid://dpxtbu0qi85ut" path="res://chibi-layered.png" id="2_3ktm0"]
@@ -87,6 +87,9 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yj1k2"]
+size = Vector2(32, 32)
+
 [node name="Player" type="CharacterBody2D"]
 motion_mode = 1
 script = ExtResource("1_5m5h3")
@@ -100,10 +103,30 @@ texture_filter = 1
 position = Vector2(16, 16)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_awclc")
-animation = &"up"
+animation = &"left"
 
 [node name="ColorRect" type="ColorRect" parent="."]
 visible = false
 offset_right = 32.0
 offset_bottom = 32.0
-color = Color(0.678431, 0.635294, 0.258824, 1)
+color = Color(1, 0.301961, 0.54902, 1)
+
+[node name="InvincibilityTimer" type="Timer" parent="."]
+wait_time = 2.2
+one_shot = true
+
+[node name="Player_Enemy Hitbox" type="Area2D" parent="."]
+position = Vector2(-3, -3)
+scale = Vector2(1.2, 1.2)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player_Enemy Hitbox"]
+position = Vector2(16, 16)
+shape = SubResource("RectangleShape2D_yj1k2")
+
+[node name="BulletTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[connection signal="timeout" from="InvincibilityTimer" to="." method="_on_invincibility_timer_timeout"]
+[connection signal="body_entered" from="Player_Enemy Hitbox" to="." method="_on_player_enemy_hitbox_body_entered"]
+[connection signal="timeout" from="BulletTimer" to="." method="_on_bullet_timer_timeout"]

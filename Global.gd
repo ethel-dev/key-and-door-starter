@@ -1,9 +1,11 @@
 extends Node
 
 # Initialize global variables
-var health = 0
+var health = 10
 var keys_found = []
 var colors
+var player
+var player_direction
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
